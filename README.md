@@ -1,2 +1,2 @@
-# Happy-Feet
+# Arctic-Rush
 A Python Arcade Game
