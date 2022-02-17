@@ -1,7 +1,7 @@
 import math
 import random
 import winsound
-import arcade
+import arcade   #You must have python arcade installed to run this game.
 import arcade.gui
 import os
 USER_SPRITE_SCALING = 0.1
@@ -16,10 +16,11 @@ SCREEN_TITLE = "Arctic Rush"
 MOVEMENT_SPEED = 10
 BULLET_SPEED = 3
 
-INSTRUCTIONS_PAGE = 0
-GAME_RUNNING = 1
-GAME_OVER = 2
-WIN_GAME = 3
+INTRO_PAGE = 0
+INSTRUCTIONS_PAGE = 1
+GAME_RUNNING = 2
+GAME_OVER = 3
+WIN_GAME = 4
 
 winsound.PlaySound("sounds/cool.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
 
@@ -468,7 +469,7 @@ class MyGame(arcade.Window):
 
         self.frame_count = 0
 
-        self.current_state = INSTRUCTIONS_PAGE
+        self.current_state = INTRO_PAGE
 
         self.player_list = arcade.SpriteList()
 
@@ -494,12 +495,14 @@ class MyGame(arcade.Window):
 
         self.instructions = []
         texture = arcade.load_texture("images/intro.jpg")
+        texture2 = arcade.load_texture("images/instructions.jpg")
         self.instructions.append(texture)
+        self.instructions.append(texture2)
     
 
     def level_1(self):
         for i in range(10):
-            
+
             # Create the coin instance
             coin = arcade.Sprite("images/diamonddd.png", SPRITE_SCALING / 4)
 
@@ -794,9 +797,9 @@ class MyGame(arcade.Window):
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
     
 
-    def draw_instructions_page(self, page_number):
+    def draw_INTRO_PAGE(self, page_number):
         """
-        Draw an instruction page. Load the page as an image.
+        Draw the intro page. Load the page as an image.
         """
         page_texture = self.instructions[page_number]
         arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
@@ -807,6 +810,19 @@ class MyGame(arcade.Window):
         arcade.draw_text(output, 225, 350, [134, 235, 228], 54, font_name="Kenney Pixel Square")
         output ="Click anywhere to start"
         arcade.draw_text(output, 450, 325, arcade.color.WHITE_SMOKE, 15, font_name="Kenney Pixel Square")
+    
+    def draw_INSTRUCTIONS_PAGE(self, page_number):
+         
+        """
+        Draw the instructions page. Load the page as an image.
+       
+        """
+        
+        page_texture = self.instructions[page_number]
+        arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
+                                      page_texture.width,
+                                      page_texture.height, page_texture, 0)
+
 
 
     def draw_game_over(self):
@@ -908,9 +924,12 @@ class MyGame(arcade.Window):
 
         arcade.start_render()
 
-        if self.current_state == INSTRUCTIONS_PAGE:
-            self.draw_instructions_page(0)
-
+        if self.current_state == INTRO_PAGE:
+            self.draw_INTRO_PAGE(0)
+        
+        elif self.current_state == INSTRUCTIONS_PAGE:
+            self.draw_INSTRUCTIONS_PAGE(1)
+        
         elif self.current_state == GAME_RUNNING:
             self.draw_game()
 
@@ -928,7 +947,10 @@ class MyGame(arcade.Window):
         """
 
         # Change states as needed.
-        if self.current_state == INSTRUCTIONS_PAGE:
+        if self.current_state == INTRO_PAGE:
+            self.current_state = INSTRUCTIONS_PAGE
+            
+        elif self.current_state == INSTRUCTIONS_PAGE:
             # Start the game
             self.setup()
             self.current_state = GAME_RUNNING
