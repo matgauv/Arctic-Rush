@@ -499,13 +499,13 @@ class MyGame(arcade.Window):
 
     def level_1(self):
         for i in range(10):
-
+            
             # Create the coin instance
             coin = arcade.Sprite("images/diamonddd.png", SPRITE_SCALING / 4)
 
             # Position the coin
-            coin.center_x = random.randrange(SCREEN_WIDTH)
-            coin.center_y = random.randrange(SCREEN_HEIGHT)
+            coin.center_x = random.randrange(100, SCREEN_WIDTH - 100)
+            coin.center_y = random.randrange(100, SCREEN_HEIGHT - 100)
 
             # Add the coin to the lists
             self.coin_list.append(coin)
@@ -533,8 +533,8 @@ class MyGame(arcade.Window):
             coin = arcade.Sprite("images/diamonddd.png", SPRITE_SCALING / 4)
 
             # Position the coin
-            coin.center_x = random.randrange(SCREEN_WIDTH)
-            coin.center_y = random.randrange(SCREEN_HEIGHT)
+            coin.center_x = random.randrange(100, SCREEN_WIDTH - 100)
+            coin.center_y = random.randrange(100, SCREEN_HEIGHT - 100)
             # Add the coin to the 2nd coin list
             self.coin_list2.append(coin)
 
@@ -570,8 +570,8 @@ class MyGame(arcade.Window):
             coin = arcade.Sprite("images/diamonddd.png", SPRITE_SCALING / 4)
 
             # Position the coin
-            coin.center_x = random.randrange(SCREEN_WIDTH)
-            coin.center_y = random.randrange(SCREEN_HEIGHT)
+            coin.center_x = random.randrange(100, SCREEN_WIDTH - 100)
+            coin.center_y = random.randrange(100, SCREEN_HEIGHT - 100)
 
             # Add the coin to the lists
             self.coin_list3.append(coin)
@@ -627,8 +627,8 @@ class MyGame(arcade.Window):
             coin = arcade.Sprite("images/diamonddd.png", SPRITE_SCALING / 4)
 
             # Position the coin
-            coin.center_x = random.randrange(SCREEN_WIDTH)
-            coin.center_y = random.randrange(SCREEN_HEIGHT)
+            coin.center_x = random.randrange(100, SCREEN_WIDTH - 100)
+            coin.center_y = random.randrange(100, SCREEN_HEIGHT - 100)
 
             # Add the coin to the 2nd coin list
             self.coin_list4.append(coin)
@@ -766,8 +766,8 @@ class MyGame(arcade.Window):
             coin = arcade.Sprite("images/diamonddd.png", SPRITE_SCALING / 4)
 
             # Position the coin
-            coin.center_x = random.randrange(SCREEN_WIDTH)
-            coin.center_y = random.randrange(SCREEN_HEIGHT)
+            coin.center_x = random.randrange(100, SCREEN_WIDTH - 100)
+            coin.center_y = random.randrange(100, SCREEN_HEIGHT - 100)
             # Add the coin to the lists
             self.coin_list.append(coin)
 
