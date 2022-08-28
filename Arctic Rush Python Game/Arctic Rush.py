@@ -1,9 +1,10 @@
 import math
 import random
 import winsound
-import arcade   #You must have python arcade installed to run this game.
+import arcade  # You must have python arcade installed to run this game.
 import arcade.gui
 import os
+
 USER_SPRITE_SCALING = 0.1
 SPRITE_SCALING = 0.5
 SPRITE_NATIVE_SIZE = 128
@@ -22,13 +23,18 @@ GAME_RUNNING = 2
 GAME_OVER = 3
 WIN_GAME = 4
 
+
 winsound.PlaySound("sounds/cool.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+
+PLAYING = 1
+
 
 class Room:
     """
     This class holds all the information about the
     different rooms.
     """
+
     def __init__(self):
         self.wall_list = None
         self.background = None
@@ -36,7 +42,6 @@ class Room:
 
 def setup_room_1():
     room = Room()
-
 
     """ Set up the game and initialize the variables. """
     # Sprite lists
@@ -91,7 +96,6 @@ def setup_room_2():
     room = Room()
 
     USER_SPRITE_SCALING = 0.2
-
 
     """ Set up the game and initialize the variables. """
     # Sprite lists
@@ -154,10 +158,8 @@ def setup_room_2():
     room.wall_list.append(wall)
     room.background = arcade.load_texture("images/ice.jpg")
 
-
-
-
     return room
+
 
 def setup_room_3():
     """
@@ -166,7 +168,6 @@ def setup_room_3():
     room = Room()
 
     USER_SPRITE_SCALING = 0.2
-
 
     """ Set up the game and initialize the variables. """
     # Sprite lists
@@ -178,7 +179,7 @@ def setup_room_3():
     for y in (0, SCREEN_HEIGHT - SPRITE_SIZE):
         # Loop for each box going across
         for x in range(0, SCREEN_WIDTH, SPRITE_SIZE):
-            if (x != SPRITE_SIZE * 9 and x != SPRITE_SIZE * 10 ):    
+            if (x != SPRITE_SIZE * 9 and x != SPRITE_SIZE * 10):
                 wall = arcade.Sprite("images/iceblock.png", SPRITE_SCALING)
                 wall.left = x
                 wall.bottom = y
@@ -219,9 +220,8 @@ def setup_room_3():
     room.wall_list.append(wall)
     room.background = arcade.load_texture("images/ice.jpg")
 
-
-
     return room
+
 
 def setup_room_4():
     """
@@ -230,7 +230,6 @@ def setup_room_4():
     room = Room()
 
     USER_SPRITE_SCALING = 0.01
-
 
     """ Set up the game and initialize the variables. """
     # Sprite lists
@@ -444,15 +443,7 @@ def setup_room_4():
     room.wall_list.append(wall)
     room.background = arcade.load_texture("images/ice.jpg")
 
-
-
-
-
-
-
-
     return room
-
 
 
 class MyGame(arcade.Window):
@@ -467,6 +458,8 @@ class MyGame(arcade.Window):
         file_path = os.path.dirname(os.path.abspath(__file__))
         os.chdir(file_path)
 
+        self.playing = 1
+
         self.frame_count = 0
 
         self.current_state = INTRO_PAGE
@@ -474,8 +467,6 @@ class MyGame(arcade.Window):
         self.player_list = arcade.SpriteList()
 
         self.total_time = 0.0
-        
-
 
         # Sprite lists
         self.current_room = 0
@@ -498,11 +489,9 @@ class MyGame(arcade.Window):
         texture2 = arcade.load_texture("images/instructions.jpg")
         self.instructions.append(texture)
         self.instructions.append(texture2)
-    
 
     def level_1(self):
         for i in range(10):
-
             # Create the coin instance
             coin = arcade.Sprite("images/diamonddd.png", SPRITE_SCALING / 4)
 
@@ -527,11 +516,8 @@ class MyGame(arcade.Window):
         enemy.angle = 0
         self.enemy_list.append(enemy)
 
-
-
     def level_2(self):
         for i in range(20):
-
             # Create the coin instance
             coin = arcade.Sprite("images/diamonddd.png", SPRITE_SCALING / 4)
 
@@ -562,13 +548,10 @@ class MyGame(arcade.Window):
         enemy.angle = 0
         self.enemy_list2.append(enemy)
 
-
         # Loop through each enemy that we have
 
-            
     def level_3(self):
         for i in range(30):
-
             # Create the coin instance
             coin = arcade.Sprite("images/diamonddd.png", SPRITE_SCALING / 4)
 
@@ -593,7 +576,6 @@ class MyGame(arcade.Window):
         enemy.angle = 0
         self.enemy_list3.append(enemy)
 
-
         # Add top-right enemy ship
         enemy = arcade.Sprite("images/walrus.png", 0.2)
         enemy.center_x = SCREEN_WIDTH - 120
@@ -607,13 +589,11 @@ class MyGame(arcade.Window):
         enemy.center_y = 13
         enemy.angle = 0
         self.enemy_list3.append(enemy)
-        
-        # Loop through each enemy that we have
 
+        # Loop through each enemy that we have
 
     def level_4(self):
         for i in range(100):
-
             # Create the coin instance
             coin = arcade.Sprite("images/goldfish.png", SPRITE_SCALING / 6)
 
@@ -625,7 +605,6 @@ class MyGame(arcade.Window):
             self.coin_list4.append(coin)
 
         for i in range(30):
-
             # Create the coin instance
             coin = arcade.Sprite("images/diamonddd.png", SPRITE_SCALING / 4)
 
@@ -722,9 +701,6 @@ class MyGame(arcade.Window):
         enemy.angle = 0
         self.enemy_list4.append(enemy)
 
-
-
-
     def setup(self):
         """ Set up the game and initialize the variables. """
         # Set up the player
@@ -734,8 +710,7 @@ class MyGame(arcade.Window):
         self.player_list = arcade.SpriteList()
         self.player_list.append(self.player_sprite)
 
-        self.total_time = 0.0
-        
+
         self.coin_list = arcade.SpriteList()
         self.coin_list2 = arcade.SpriteList()
         self.coin_list3 = arcade.SpriteList()
@@ -764,7 +739,6 @@ class MyGame(arcade.Window):
         self.enemy_list.append(enemy)
 
         for i in range(50):
-
             # Create the coin instance
             coin = arcade.Sprite("images/diamonddd.png", SPRITE_SCALING / 4)
 
@@ -795,7 +769,6 @@ class MyGame(arcade.Window):
 
         # Create a physics engine for this room
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
-    
 
     def draw_INTRO_PAGE(self, page_number):
         """
@@ -805,25 +778,23 @@ class MyGame(arcade.Window):
         arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
                                       page_texture.width,
                                       page_texture.height, page_texture, 0)
-        
-        output ="Arctic Rush"
+
+        output = "Arctic Rush"
         arcade.draw_text(output, 225, 350, [134, 235, 228], 54, font_name="Kenney Pixel Square")
-        output ="Click anywhere to start"
+        output = "Click anywhere to start"
         arcade.draw_text(output, 450, 325, arcade.color.WHITE_SMOKE, 15, font_name="Kenney Pixel Square")
-    
+
     def draw_INSTRUCTIONS_PAGE(self, page_number):
-         
+
         """
         Draw the instructions page. Load the page as an image.
        
         """
-        
+
         page_texture = self.instructions[page_number]
         arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
                                       page_texture.width,
                                       page_texture.height, page_texture, 0)
-
-
 
     def draw_game_over(self):
         """
@@ -831,7 +802,7 @@ class MyGame(arcade.Window):
         """
 
         arcade.draw_rectangle_filled(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, SCREEN_WIDTH, SCREEN_HEIGHT, [0, 0, 0, 150])
-        
+
         output = "Game Over"
         arcade.draw_text(output, 225, 350, arcade.color.RED, 54, font_name="Kenney Pixel Square")
 
@@ -847,10 +818,10 @@ class MyGame(arcade.Window):
         seconds = int(self.total_time) % 60
 
         arcade.draw_rectangle_filled(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, SCREEN_WIDTH, SCREEN_HEIGHT, [0, 0, 0, 150])
-        
+
         output = "Congratulations! You found the Golden Fish!"
         arcade.draw_text(output, 5, 450, arcade.color.RED, 24, font_name="Kenney Pixel Square")
-        
+
         output = f"You finished in: {minutes:02d}:{seconds:02d}"
         arcade.draw_text(output, 250, 300, arcade.color.GOLDEN_YELLOW, 24, font_name="Kenney Pixel Square")
 
@@ -860,11 +831,7 @@ class MyGame(arcade.Window):
         output = "Press 'r' to play again!"
         arcade.draw_text(output, 235, 100, arcade.color.WHITE_SMOKE, 24, font_name="Kenney Pixel Square")
 
-
-        
-
     def draw_game(self):
-
 
         # Draw the background texture
         arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
@@ -912,10 +879,16 @@ class MyGame(arcade.Window):
 
         # Output the timer text.
         arcade.draw_text(output, 625, 15, arcade.color.RED, 30, font_name="Kenney Pixel Square")
-            
-        arcade.draw_text(f"Score: {self.score}", 10, 20, arcade.color.RED, 30, font_name="Kenney Pixel Square")
-        
 
+        arcade.draw_text(f"Score: {self.score}", 10, 20, arcade.color.RED, 30, font_name="Kenney Pixel Square")
+
+        arcade.draw_rectangle_filled(860, 610, 150, 70, [0, 0, 0, 150])
+        arcade.draw_text("'M'", 790, 593, arcade.color.LIGHT_GRAY, 25, font_name="Kenney Pixel Square")
+
+        if self.playing == 0:
+            arcade.draw_texture_rectangle(860, 610, 50, 50, arcade.load_texture("images/muted.png"))
+        else:
+            arcade.draw_texture_rectangle(860, 610, 50, 50, arcade.load_texture("images/unmuted.png"))
 
     def on_draw(self):
         """
@@ -926,10 +899,10 @@ class MyGame(arcade.Window):
 
         if self.current_state == INTRO_PAGE:
             self.draw_INTRO_PAGE(0)
-        
+
         elif self.current_state == INSTRUCTIONS_PAGE:
             self.draw_INSTRUCTIONS_PAGE(1)
-        
+
         elif self.current_state == GAME_RUNNING:
             self.draw_game()
 
@@ -949,7 +922,7 @@ class MyGame(arcade.Window):
         # Change states as needed.
         if self.current_state == INTRO_PAGE:
             self.current_state = INSTRUCTIONS_PAGE
-            
+
         elif self.current_state == INSTRUCTIONS_PAGE:
             # Start the game
             self.setup()
@@ -957,13 +930,26 @@ class MyGame(arcade.Window):
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
+
+        if key == arcade.key.M and self.playing == 1:
+            winsound.PlaySound(None, winsound.SND_PURGE)
+            self.playing = 0
+        elif key == arcade.key.M:
+            winsound.PlaySound("sounds/cool.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+            self.playing = 1
+
+        muted = self.playing
+
         if self.current_state == GAME_OVER and key == arcade.key.R:
             self.clearall()
+            self.playing = muted
             self.current_state = GAME_RUNNING
             self.setup()
         if self.current_state == WIN_GAME and key == arcade.key.R:
             self.clearall()
             self.score = 0
+            self.total_time = 0
+            self.playing = muted
             self.current_state = GAME_RUNNING
             self.setup()
         elif self.current_state == GAME_RUNNING:
@@ -1029,7 +1015,7 @@ class MyGame(arcade.Window):
                 angle = math.atan2(y_diff, x_diff)
 
                 # Set the enemy to face the player.
-                enemy.angle = math.degrees(angle)-90
+                enemy.angle = math.degrees(angle) - 90
 
                 # Shoot every 60 frames change of shooting each frame
                 if self.frame_count % 120 == 0:
@@ -1046,7 +1032,6 @@ class MyGame(arcade.Window):
                     bullet.change_y = math.sin(angle) * BULLET_SPEED
 
                     self.bullet_list.append(bullet)
-
 
             # Get rid of the bullet when it flies off-screen
             for bullet in self.bullet_list:
@@ -1076,7 +1061,7 @@ class MyGame(arcade.Window):
                 angle = math.atan2(y_diff, x_diff)
 
                 # Set the enemy to face the player.
-                enemy.angle = math.degrees(angle)-90
+                enemy.angle = math.degrees(angle) - 90
 
                 # Shoot every 60 frames change of shooting each frame
                 if self.frame_count % 120 == 0:
@@ -1093,7 +1078,6 @@ class MyGame(arcade.Window):
                     bullet.change_y = math.sin(angle) * BULLET_SPEED
 
                     self.bullet_list2.append(bullet)
-
 
             # Get rid of the bullet when it flies off-screen
             for bullet in self.bullet_list2:
@@ -1123,7 +1107,7 @@ class MyGame(arcade.Window):
                 angle = math.atan2(y_diff, x_diff)
 
                 # Set the enemy to face the player.
-                enemy.angle = math.degrees(angle)-90
+                enemy.angle = math.degrees(angle) - 90
 
                 # Shoot every 60 frames change of shooting each frame
                 if self.frame_count % 120 == 0:
@@ -1140,8 +1124,6 @@ class MyGame(arcade.Window):
                     bullet.change_y = math.sin(angle) * BULLET_SPEED
 
                     self.bullet_list3.append(bullet)
-
-
 
             # Get rid of the bullet when it flies off-screen
             for bullet in self.bullet_list3:
@@ -1171,7 +1153,7 @@ class MyGame(arcade.Window):
                 angle = math.atan2(y_diff, x_diff)
 
                 # Set the enemy to face the player.
-                enemy.angle = math.degrees(angle)-90
+                enemy.angle = math.degrees(angle) - 90
 
                 # Shoot every 60 frames change of shooting each frame
                 if self.frame_count % 60 == 0:
@@ -1182,7 +1164,6 @@ class MyGame(arcade.Window):
                     # Angle the bullet sprite
                     bullet.angle = math.degrees(angle)
 
-
                     # Taking into account the angle, calculate our change_x
                     # and change_y. Velocity is how fast the bullet travels.
                     bullet.change_x = math.cos(angle) * BULLET_SPEED
@@ -1190,13 +1171,10 @@ class MyGame(arcade.Window):
 
                     self.bullet_list4.append(bullet)
 
-
-
             # Get rid of the bullet when it flies off-screen
             for bullet in self.bullet_list4:
                 if self.player_sprite.center_x == 0:
                     bullet.kill()
-
 
             # Call update on all sprites (The sprites don't do much in this
             # example though.)
@@ -1211,7 +1189,7 @@ class MyGame(arcade.Window):
                 self.player_sprite.center_x = 0
                 self.clearall()
                 self.level_2()
-                
+
             elif self.player_sprite.center_x < 0 and self.current_room == 1:
                 self.current_room = 0
                 self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
@@ -1227,7 +1205,7 @@ class MyGame(arcade.Window):
                 self.player_sprite.center_x = 0
                 self.clearall()
                 self.level_3()
-               
+
             elif self.player_sprite.center_x < 0 and self.current_room == 2:
                 self.current_room = 1
                 self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
@@ -1272,7 +1250,7 @@ class MyGame(arcade.Window):
             self.bullet_list2.update()
             self.bullet_list3.update()
             self.bullet_list4.update()
-            
+
             # Generate a list of all sprites that collided with the player.
             hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.coin_list)
             hit_list2 = arcade.check_for_collision_with_list(self.player_sprite, self.coin_list2)
@@ -1316,8 +1294,6 @@ class MyGame(arcade.Window):
 
             if self.score > 90:
                 self.current_state = WIN_GAME
-
-
 
 
 def main():
