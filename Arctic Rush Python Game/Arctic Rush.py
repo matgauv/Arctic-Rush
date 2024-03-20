@@ -1,6 +1,6 @@
 import math
 import random
-import winsound
+import pygame
 import arcade  # You must have python arcade installed to run this game.
 import arcade.gui
 import os
@@ -23,8 +23,13 @@ GAME_RUNNING = 2
 GAME_OVER = 3
 WIN_GAME = 4
 
+MUSIC_CHANNEL = 0
 
-winsound.PlaySound("sounds/cool.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+pygame.init()
+pygame.mixer.init()
+musicTheme = pygame.mixer.Sound("sounds/cool.wav")
+pygame.mixer.set_num_channels(200)
+pygame.mixer.Channel(MUSIC_CHANNEL).play(musicTheme, 1000)
 
 PLAYING = 1
 
@@ -932,10 +937,10 @@ class MyGame(arcade.Window):
         """Called whenever a key is pressed. """
 
         if key == arcade.key.M and self.playing == 1:
-            winsound.PlaySound(None, winsound.SND_PURGE)
+            pygame.mixer.Channel(MUSIC_CHANNEL).pause()
             self.playing = 0
         elif key == arcade.key.M:
-            winsound.PlaySound("sounds/cool.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+            pygame.mixer.Channel(MUSIC_CHANNEL).unpause()
             self.playing = 1
 
         muted = self.playing
@@ -1263,28 +1268,36 @@ class MyGame(arcade.Window):
             hit_list8 = arcade.check_for_collision_with_list(self.player_sprite, self.bullet_list4)
             # Loop through each colliding sprite, remove it, and add to the score.
             for coin in hit_list:
+                self.play_sound("sounds/coin.wav")
                 coin.kill()
                 self.score += 1
             for coin in hit_list2:
+                self.play_sound("sounds/coin.wav")
                 coin.kill()
                 self.score += 1
             for coin in hit_list3:
+                self.play_sound("sounds/coin.wav")
                 coin.kill()
                 self.score += 1
             for coin in hit_list4:
+                self.play_sound("sounds/coin.wav")
                 coin.kill()
                 self.score += 1
 
             for bullet in hit_list5:
+                self.play_sound("sounds/damage.wav")
                 bullet.kill()
                 self.score -= 5
             for bullet in hit_list6:
+                self.play_sound("sounds/damage.wav")
                 bullet.kill()
                 self.score -= 5
             for bullet in hit_list7:
+                self.play_sound("sounds/damage.wav")
                 bullet.kill()
                 self.score -= 5
             for bullet in hit_list8:
+                self.play_sound("sounds/damage.wav")
                 bullet.kill()
                 self.score -= 5
 
@@ -1295,6 +1308,9 @@ class MyGame(arcade.Window):
             if self.score > 90:
                 self.current_state = WIN_GAME
 
+    def play_sound(self, sound_path):
+        inactive_channel = pygame.mixer.find_channel(True)
+        inactive_channel.play(pygame.mixer.Sound(sound_path))
 
 def main():
     """ Main method """
