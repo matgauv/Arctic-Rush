@@ -937,10 +937,10 @@ class MyGame(arcade.Window):
         """Called whenever a key is pressed. """
 
         if key == arcade.key.M and self.playing == 1:
-            pygame.mixer.Channel(MUSIC_CHANNEL).pause()
+            pygame.mixer.pause()
             self.playing = 0
         elif key == arcade.key.M:
-            pygame.mixer.Channel(MUSIC_CHANNEL).unpause()
+            pygame.mixer.unpause()
             self.playing = 1
 
         muted = self.playing
@@ -1309,8 +1309,9 @@ class MyGame(arcade.Window):
                 self.current_state = WIN_GAME
 
     def play_sound(self, sound_path):
-        inactive_channel = pygame.mixer.find_channel(True)
-        inactive_channel.play(pygame.mixer.Sound(sound_path))
+        if self.playing == 1:
+            inactive_channel = pygame.mixer.find_channel(True)
+            inactive_channel.play(pygame.mixer.Sound(sound_path))
 
 def main():
     """ Main method """
